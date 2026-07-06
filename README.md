@@ -2,7 +2,7 @@
 ## **The Media We Consume for Comfort**
 #### *Analysis of your good ol' heartwarming TV shows*
 
------\n---
+
 
 #### **1. Introduction**
 
@@ -17,7 +17,7 @@ Comfort is a widely subjective and personal experience. This analysis covered li
 
 
 
-##### **2.1 Data Source**
+* **2.1 Data Source**
 
 * Show titles, IMDB ID, ratings, votes, runtime, genres, year | [IMDb personal list export](https://www.imdb.com/list/) |
 | 
@@ -66,7 +66,14 @@ Discriptive statistics were used to summarize the data using `summary()` and `gg
 A list of 63 shows were extracted. 
 
 ```{r echo=FALSE}
+top_rated <- shows %>%
+  arrange(desc(rating)) %>%
+  slice(1:15) %>%
+  mutate(title = fct_reorder(title, rating))
 
+ggplot(top_rated, aes(x = rating, y = title)) +
+  geom_col() +
+  labs(title = "Top 15 Shows by IMDb Rating", x = "Rating", y = NULL)
 ```
 
 
