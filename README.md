@@ -76,6 +76,9 @@ ggplot(top_rated, aes(x = rating, y = title)) +
   labs(title = "Top 15 Shows by IMDb Rating", x = "Rating", y = NULL)
 ```
 
+<img width="871" height="481" alt="image" src="https://github.com/user-attachments/assets/6962bb10-2017-4a0f-8a58-3dd87cab43f9" />
+
+
 
 #### **6. Limitations**
 
