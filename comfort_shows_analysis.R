@@ -54,44 +54,43 @@ shows_raw %>%
   arrange(`Runtime (mins)`) %>%
   print(n = Inf)
 # Expect a range from ~21 mins (Ghosts) to ~61 mins (Zoey's Extraordinary Playlist)
-# Strange Planet has NA — the only show with a missing runtime
+# Strange Planet has NA, the only show with a missing runtime
 
-# --- Year range: oldest to newest show ---
+# Year range
 range(shows_raw$Year)
-# Should span from ~1989 (Seinfeld) to 2024 (The Girls on the Bus)
+# data spans from ~1989 (Seinfeld) to 2024 (The Girls on the Bus)
 
-# --- How many shows per year? Any year with many shows? ---
+# How many shows per year? 
 shows_raw %>%
   count(Year, sort = TRUE) %>%
   print(n = Inf)
 
-# --- Glance at the genres column ---
+# Genres
 shows_raw %>%
   select(Title, Genres) %>%
   print(n = Inf)
-# Several shows have 2-4 genres as one string
-# We'll split these properly later
+# Several shows have 2-4 genres as one string. These will be split later
 
-# --- How many unique genres exist across the whole list? ---
+# How many unique genres exist?
 shows_raw %>%
   separate_rows(Genres, sep = ", ") %>% # calling each genre separately using ", " as the delimiter
   distinct(Genres) %>%
   arrange(Genres)
-# Gives us the full genre 
 
 
 # ============================================================
-# 3. FILTER & CLEAN (before scraping)
+# 3. Data Cleaning
 # ============================================================
 
+# dropping all categories that are not "TV Series"
 shows <- shows_raw %>%
   filter(`Title Type` == "TV Series") %>%           # only keep TV Series
   filter(!str_detect(Genres, "Animation"))           # drop animated shows (Pokémon, Sailor Moon, Strange Planet)
 
-# Confirm how many rows we dropped
+# checking how many rows we dropped
 nrow(shows_raw) - nrow(shows)   # should print 4 (1 TV Special + 3 animated shows)
 
-# Rename and selecting necessary columns for analysis
+# rename and select necessary columns for analysis
 shows <- shows %>%
   rename(
     title   = Title,
@@ -103,19 +102,16 @@ shows <- shows %>%
   ) %>%
   select(Const, title, rating, runtime, year, genres, votes) #Const is IMDB ID
 
-# --- Check for missing values in our working columns ---
+# checking missing values
 colSums(is.na(shows))
-# With animation shows removed, runtime should have 0 NAs
-# votes: 0 NAs
-# rating: 0 NAs
+# with animation shows removed, runtime, votes and rating should have 0 NAs
 
-# Confirm no NAs in runtime
 sum(is.na(shows$runtime))   # should be 0
 
-# --- Add a decade column to later analyze 1990s, 2000s, etc---
+# add a decade column to later analyze 1990s, 2000s, etc
 shows <- shows %>%
   mutate(decade = paste0(floor(year / 10) * 10, "s"))
-# --- Add decade label as string---
+# add decade label as string
 shows <- shows %>%
   mutate(era = case_when(
     year < 2000 ~ "Pre-2000s",
@@ -129,7 +125,7 @@ glimpse(shows)
 
 
 # ============================================================
-# 4. SCRAPE SEASONS + EPISODES FROM IMDb
+# 4. Scrape Number of Seasons and Episodes
 # ============================================================
 # the logic for this extraction is as follows: 
 # > match imdb_id (from the csv file) with TMDB ID (if available) and store in find_data object
@@ -187,7 +183,7 @@ shows <- shows %>%
 # 5.1.1 Total shows
 nrow(shows)
 # 5.1.2 Year range
-print(min(shows$year), "–", max(shows$year))
+range(shows$year)
 
 # 5.2 Ratings
 
@@ -197,49 +193,61 @@ round(mean(shows$rating), 2)
 shows$title[which.max(shows$rating)]
 # 5.2.3.Lowest rated show
 shows$title[which.min(shows$rating)]
-# 5.2.4 
-cat("Shows rated 8.5+:   ", sum(shows$rating >= 8.5), "\n")
-cat("Shows rated below 7:", sum(shows$rating < 7), "\n\n")
+# 5.2.4 Shows distribution by rating
+print(sum(shows$rating >= 8.5))
+print(sum(shows$rating < 7))
 
-cat("--- VOTES (POPULARITY) ---\n")
-cat("Most voted:  ", shows$title[which.max(shows$votes)],
-    "(", format(max(shows$votes), big.mark = ","), "votes )\n")
-cat("Least voted: ", shows$title[which.min(shows$votes)],
-    "(", format(min(shows$votes), big.mark = ","), "votes )\n")
-cat("Median votes:", format(median(shows$votes), big.mark = ","), "\n\n")
 
-cat("--- EPISODE COUNTS ---\n")
-cat("Most episodes: ", shows$title[which.max(replace_na(shows$episodes, 0))],
-    "(", max(shows$episodes, na.rm = TRUE), "eps,",
-    shows$seasons[which.max(replace_na(shows$episodes, 0))], "seasons )\n")
-cat("Fewest episodes:", shows %>% filter(!is.na(episodes)) %>%
-    slice_min(episodes, n = 1) %>% pull(title),
-    "(", min(shows$episodes, na.rm = TRUE), "eps )\n")
-cat("Average episodes per show:", round(mean(shows$episodes, na.rm = TRUE), 0), "\n\n")
+# 5.3 Votes
+# 5.3.1 Top 5 most voted shows
+shows %>%
+  slice_max(votes, n = 5) %>%
+  select(title, votes) %>%
+  print()
+# 5.3.1 5 least voted shows
+shows %>%
+  slice_min(votes, n = 5) %>%
+  select(title, votes) %>%
+  print()
 
-cat("--- RUNTIME ---\n")
+# 5.4 Episode counts
+# 5.4.1 shows with the highest number of episodes
+shows %>%
+  slice_max(episodes, n = 3) %>%
+  select(title, episodes) %>%
+  print()
+# 5.4.2 shows with the lowest number of episodes
+shows %>%
+  slice_min(episodes, n = 3) %>%
+  select(title, episodes) %>%
+  print()
+# 5.4.3 average number of episodes
+round(mean(shows$episodes, na.rm = TRUE), 0)
+
+# 5.5 Runtime
+# 5.5.1 total runtime in hours
 shows <- shows %>%
   mutate(
     total_runtime_hrs = runtime * episodes / 60
   )
-cat("Total hours of TV (estimated):",
-    round(sum(shows$total_runtime_hrs, na.rm = TRUE)), "hrs\n")
-cat("That's roughly",
-    round(sum(shows$total_runtime_hrs, na.rm = TRUE) / 24), "days of continuous watching\n")
-cat("Longest single show by hours:", shows %>%
-    filter(!is.na(total_runtime_hrs)) %>%
-    slice_max(total_runtime_hrs, n = 1) %>%
-    mutate(label = paste0(title, " (", total_runtime_hrs, " hrs)")) %>%
-    pull(label), "\n\n")
+    round(sum(shows$total_runtime_hrs, na.rm = TRUE))
+# 5.5.2 how many days is 2,651 hours?
+round(sum(shows$total_runtime_hrs, na.rm = TRUE) / 24)
+#5.5.3 Top 3 longest show (hrs)
+shows %>%
+    slice_max(total_runtime_hrs, n = 3) %>%
+  select(title, total_runtime_hrs) %>%
+  print()
 
-cat("--- GENRES ---\n")
+# 5.6 Genres
+#5.6.1 how many total genres in this dataset?
 genre_counts <- shows %>%
   separate_rows(genres, sep = ", ") %>%
   count(genres, sort = TRUE)
 print(genre_counts)
-cat("\n")
 
-cat("--- BY DECADE ---\n")
+
+# 5.7. Shows Distribution by Decade
 shows %>%
   group_by(decade) %>%
   summarise(
@@ -248,49 +256,34 @@ shows %>%
     avg_episodes = round(mean(episodes, na.rm = TRUE), 0)
   ) %>%
   print()
-cat("\n")
 
-
-cat("High rating but low votes (potential hidden insights):\n")
-shows %>%
-  filter(rating >= 8.0, votes < 50000) %>%
-  select(title, rating, votes) %>%
-  arrange(desc(rating)) %>%
-  print()
-
-cat("\nHigh votes but lower rating (overhyped?):\n")
-shows %>%
-  filter(votes >= 200000, rating < 8.0) %>%
-  select(title, rating, votes) %>%
-  arrange(desc(votes)) %>%
-  print()
 
 
 # ============================================================
-# 8. Data visualizatoin
+# 6. Data Visualizatoin
 # ============================================================
 
 
-# Figure. 1 Top 15 shows by IMDb rating 
+# Figure. 1 Top 10 shows by IMDb rating 
 top_rated <- shows %>%
   arrange(desc(rating)) %>%
-  slice(1:15) %>%
+  slice(1:10) %>%
   mutate(title = fct_reorder(title, rating))
 
 ggplot(top_rated, aes(x = rating, y = title)) +
   geom_col() +
-  labs(title = "Top 15 Shows by IMDb Rating", x = "Rating", y = NULL)
+  labs(title = "Top 10 Shows by IMDb Rating", x = "Rating", y = NULL)
 
 
-# Figure. 2 Top 15 shows by vote count
+# Figure. 2 Top 10 shows by vote count
 top_votes <- shows %>%
   arrange(desc(votes)) %>%
-  slice(1:15) %>%
+  slice(1:10) %>%
   mutate(title = fct_reorder(title, votes))
 
 ggplot(top_votes, aes(x = votes, y = title)) +
   geom_col() +
-  labs(title = "Top 15 Shows by IMDb Votes", x = "Votes", y = NULL)
+  labs(title = "Top 10 Shows by IMDb Votes", x = "Votes", y = NULL)
 
 
 # Figure. 3 Genre frequency
@@ -333,19 +326,19 @@ shows %>%
   labs(title = "Episode Count Distribution", x = "Episode range", y = "Number of shows")
 
 
-# Figure. 7 Top 15 shows by episode count
+# Figure. 7 Top 10 shows by episode count
 top_episodes <- shows %>%
   filter(!is.na(episodes)) %>%
   arrange(desc(episodes)) %>%
-  slice(1:15) %>%
+  slice(1:10) %>%
   mutate(title = fct_reorder(title, episodes))
 
 ggplot(top_episodes, aes(x = episodes, y = title)) +
   geom_col() +
-  labs(title = "Top 15 Shows by Episode Count", x = "Total episodes", y = NULL)
+  labs(title = "Top 10 Shows by Episode Count", x = "Total episodes", y = NULL)
 
 
-# Figure. 8 Runtime vs episodes (bubble)
+# Figure. 8 Runtime vs episodes (bubble chart)
 shows %>%
   filter(!is.na(episodes), !is.na(runtime)) %>%
   ggplot(aes(x = runtime, y = episodes, size = rating)) +
