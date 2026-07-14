@@ -65,16 +65,12 @@ Discriptive statistics were used to summarize the data using `summary()` and `gg
 
 A list of 63 shows were extracted. 
 
-```{r echo=FALSE}
-top_rated <- shows %>%
-  arrange(desc(rating)) %>%
-  slice(1:15) %>%
-  mutate(title = fct_reorder(title, rating))
 
-ggplot(top_rated, aes(x = rating, y = title)) +
-  geom_col() +
-  labs(title = "Top 15 Shows by IMDb Rating", x = "Rating", y = NULL)
-```
+
+<img width="500" height="250" alt="image" src="https://github.com/user-attachments/assets/b203a626-60b0-43b7-9cd8-09ec05acba80" />
+
+
+
 
 
 #### **6. Limitations**

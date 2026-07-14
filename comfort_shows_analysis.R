@@ -134,7 +134,7 @@ glimpse(shows)
 # > join episode_data with shows dataframes on Const (imdb ID)
 
 
-api_key <- "caa37a44e73c27e2941a308b84360dff"
+api_key <- "######"
 
 
 get_show_info <- function(imdb_id) {
