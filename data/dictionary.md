@@ -1,9 +1,8 @@
-# Data Dictionary — IMDb Personal Export
+## Data Dictionary
 
 **File:** `comfort_shows_list.csv`
 **Rows:** 63 · **Columns:** 16
 
----
 
 - **Position** *(integer)* — row number in the IMDb list
 
