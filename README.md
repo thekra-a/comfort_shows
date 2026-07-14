@@ -59,25 +59,25 @@ Discriptive statistics were used to summarize the data using `summary()` and `gg
 
 A list of 63 shows were extracted from a personal IMDb export, and a total 59 TV series were retained for analysis. 
 
-**IMDb Rating**
+**5.1 IMDb Rating**
 
 <img width="470" height="275" alt="image" src="https://github.com/user-attachments/assets/28872716-0bb9-4fcb-9fe6-676391f3de4f" />
 
 Figure. 1 displays the top 10 shows by IMDb rating. The Office recorded the highest rating at 9.0, followed by Seinfeld (8.9), and Fleabag and Ted Lasso (both 8.7).
 
-**Vote Count**
+**5.2 Vote Count**
 
 <img width="470" height="275" alt="image" src="https://github.com/user-attachments/assets/9dc12ce2-7f02-447a-8142-70e587c64100" />
 
 Figure.2 displays the top 10 shows by total number of IMDb user votes. *The Office* recorded the highest vote count at 834,899, followed by *How I Met Your Mother* (782,945) and *Supernatural* (540,283).
 
-**Genres**
+**5.3 Genres**
 
 <img width="470" height="275" alt="image" src="https://github.com/user-attachments/assets/b957750e-6386-4f9c-b969-9cfeec925214" />
 
 Figure.3 displays the frequency of different genres across all 59 shows where a total of 15 distinct genres were identified. *Comedy* was the most frequently occurring genre (45 shows), followed by *Drama* (27) and *Romance* (14). 
 
-**Premier Year**
+**5.4 Premier Year**
 
 <img width="470" height="275" alt="image" src="https://github.com/user-attachments/assets/7d3ed69b-58c6-4191-9e9f-1943708b2cde" />
 
