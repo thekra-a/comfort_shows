@@ -1,6 +1,7 @@
 
 ## **The Media We Consume for Comfort**
 #### *Analysis of your good ol' heartwarming TV shows*
+#### [view interactive report](https://thekra-a.github.io/comfort_shows/)
 
 ------------------------
 
