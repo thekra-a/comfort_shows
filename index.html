@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Media We Consume for Comfort</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF8F3;
+    --ink:   #1A1714;
+    --ink2:  #4A4540;
+    --ink3:  #8A837C;
+    --gold:  #C4862A;
+    --gold-light: #F5E6CC;
+    --rose:  #B54A3F;
+    --teal:  #2B6E6A;
+    --border: rgba(26,23,20,0.10);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--cream); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.75; }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink3);
+  }
+  .masthead-dot { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 80px 32px 64px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink3);
+    margin-bottom: 24px;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 6vw, 68px);
+    line-height: 1.08;
+    margin-bottom: 8px;
+  }
+  .hero-title em { color: var(--gold); font-style: italic; }
+  .hero-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(16px, 2.5vw, 20px);
+    color: var(--ink3);
+    margin-bottom: 32px;
+  }
+  .hero-intro {
+    font-size: 15px;
+    color: var(--ink2);
+    max-width: 580px;
+    margin: 0 auto 52px;
+    line-height: 1.8;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .hero-stat { background: var(--cream); padding: 24px 12px; text-align: center; }
+  .hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .hero-stat-num sup { font-size: 18px; color: var(--gold); }
+  .hero-stat-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink3); }
+
+  /* ── OPENING QUOTE ── */
+  .opening-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink2);
+    max-width: 560px;
+    margin: 0 auto;
+    padding-top: 8px;
+    line-height: 1.6;
+  }
+  .opening-quote cite {
+    display: block;
+    font-style: normal;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: var(--ink3);
+    margin-top: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── CONTENT ── */
+  .content { max-width: 820px; margin: 0 auto; padding: 0 32px 100px; }
+
+  .section { padding-top: 72px; }
+  .section-number { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--ink3); margin-bottom: 10px; }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .divider { width: 36px; height: 2px; background: var(--gold); margin: 14px 0 28px; }
+  .section-body { font-size: 15px; color: var(--ink2); margin-bottom: 32px; max-width: 580px; line-height: 1.8; }
+
+  /* ── CHART CARDS ── */
+  .chart-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 28px 22px;
+    margin-bottom: 16px;
+  }
+  .chart-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+
+  /* ── HORIZONTAL BAR ── */
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+  .bar-name { width: 200px; flex-shrink: 0; font-size: 13px; color: var(--ink2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-track { flex: 1; height: 20px; background: rgba(26,23,20,0.05); border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.9s cubic-bezier(.25,.8,.25,1); }
+  .bar-val { width: 64px; flex-shrink: 0; text-align: right; font-size: 12px; font-weight: 500; color: var(--ink); }
+
+  /* ── RATING TILES ── */
+  .tile-grid { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tile {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 50px; height: 50px; border-radius: 8px; cursor: default; position: relative;
+  }
+  .tile:hover .tile-tip { display: block; }
+  .tile-rating { font-family: 'Playfair Display', serif; font-size: 13px; font-weight: 700; line-height: 1; }
+  .tile-name { font-size: 7.5px; text-align: center; line-height: 1.2; margin-top: 2px; padding: 0 2px; }
+  .tile-tip {
+    display: none; position: absolute; bottom: calc(100% + 6px); left: 50%;
+    transform: translateX(-50%); background: var(--ink); color: white;
+    font-size: 11px; padding: 5px 9px; border-radius: 5px; white-space: nowrap;
+    z-index: 20; pointer-events: none;
+  }
+  .tile-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; font-size: 11px; color: var(--ink2); }
+  .tile-legend span { display: flex; align-items: center; gap: 5px; }
+  .tile-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
+
+  /* ── GENRE PILLS ── */
+  .genre-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+  .genre-pill {
+    display: flex; align-items: center; gap: 7px;
+    padding: 7px 14px; border-radius: 100px;
+    font-size: 13px; font-weight: 500; cursor: pointer; position: relative;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .genre-pill:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.11); z-index: 10; }
+  .genre-pill-count { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; }
+  .genre-tip {
+    display: none; position: absolute; bottom: calc(100% + 8px); left: 50%;
+    transform: translateX(-50%); background: var(--ink); color: #FAF8F3;
+    font-size: 11.5px; font-weight: 400; padding: 10px 13px; border-radius: 8px;
+    z-index: 100; pointer-events: none; line-height: 1.7; min-width: 180px;
+    max-width: 280px; white-space: normal; box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+  }
+  .genre-tip::after {
+    content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    border: 5px solid transparent; border-top-color: var(--ink);
+  }
+  .genre-pill:hover .genre-tip { display: block; }
+  .genre-tip-title { display: block; font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; }
+  .genre-tip-show { display: block; padding: 1px 0; }
+
+  /* ── YEAR BARS ── */
+  .year-area { display: flex; align-items: flex-end; gap: 5px; height: 130px; padding-bottom: 28px; overflow-x: auto; }
+  .year-col { display: flex; flex-direction: column; align-items: center; flex: 1; min-width: 22px; cursor: pointer; position: relative; }
+  .year-col:hover .year-tip { display: block; }
+  .year-col:hover .year-bar { opacity: 0.7; }
+  .year-bar { width: 100%; border-radius: 3px 3px 0 0; transition: opacity 0.15s; }
+  .year-lbl { font-size: 8.5px; color: var(--ink3); margin-top: 4px; transform: rotate(-50deg) translateX(-4px); transform-origin: top left; white-space: nowrap; }
+  .year-tip {
+    display: none; position: absolute; bottom: calc(100% + 4px); left: 50%;
+    transform: translateX(-50%); background: var(--ink); color: white;
+    font-size: 11px; padding: 5px 9px; border-radius: 5px; white-space: nowrap;
+    z-index: 20; pointer-events: none;
+  }
+  .decade-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; font-size: 11px; color: var(--ink2); }
+  .decade-legend span { display: flex; align-items: center; gap: 5px; }
+  .decade-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
+
+  /* ── INSIGHT BOXES ── */
+  .insight-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 20px; }
+  .insight-box { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 20px 18px; }
+  .insight-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink3); margin-bottom: 6px; }
+  .insight-num { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; line-height: 1; color: var(--ink); margin-bottom: 6px; }
+  .insight-num span { color: var(--gold); font-size: 18px; }
+  .insight-note { font-size: 12px; color: var(--ink2); line-height: 1.55; }
+
+  /* ── PULLQUOTE ── */
+  .pullquote {
+    border-left: 3px solid var(--gold);
+    padding: 18px 24px;
+    margin: 40px 0;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--ink2);
+    background: var(--gold-light);
+    border-radius: 0 10px 10px 0;
+    line-height: 1.6;
+  }
+  .pullquote cite {
+    display: block; font-style: normal; font-family: 'DM Sans', sans-serif;
+    font-size: 11px; color: var(--ink3); margin-top: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* ── DECADE CARDS ── */
+  .decade-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 10px; }
+  .decade-card { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 16px 12px; text-align: center; }
+  .decade-card-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .decade-card-num { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; margin-bottom: 2px; }
+  .decade-card-sub { font-size: 11px; color: var(--ink3); }
+  .decade-bar { height: 3px; border-radius: 2px; margin-top: 10px; }
+
+  /* ── EP DIST ── */
+  .ep-row { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+  .ep-lbl { width: 96px; flex-shrink: 0; font-size: 12px; color: var(--ink2); }
+  .ep-track { flex: 1; height: 22px; background: rgba(26,23,20,0.05); border-radius: 4px; overflow: hidden; }
+  .ep-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 500; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 32px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--ink3);
+    letter-spacing: 0.07em;
+    line-height: 2;
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ── WORD CLOUD ── */
+  #wcCanvas { width: 100%; display: block; }
+
+  @media (max-width:600px) {
+    .hero-stats { grid-template-columns: repeat(2,1fr); }
+    .insight-row { grid-template-columns: 1fr 1fr; }
+    .decade-grid { grid-template-columns: repeat(3,1fr); }
+    .bar-name { width: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  R <span class="masthead-dot">·</span> tidyverse <span class="masthead-dot">·</span> ggplot2 <span class="masthead-dot">·</span> API
+</div>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <h1 class="hero-title">The Media We Consume<br><em>for Comfort</em></h1>
+  <p class="hero-subtitle">An analysis of your good ol' heartwarming TV shows</p>
+  <p class="hero-intro" style="text-align:justify;">
+    Comfort shows are more than background noise on a lonely night. A growing body of evidence suggests that certain types of media can create a positive psychological impact, including reduced distress and mood regulation with low cognitive arousal.
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">59</div>
+      <div class="hero-stat-label">TV Series</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">7.9</div>
+      <div class="hero-stat-label">Avg IMDb Rating</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" id="heroEps">—</div>
+      <div class="hero-stat-label">Total Episodes</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" id="heroHrs">—</div>
+      <div class="hero-stat-label">Hours of TV</div>
+    </div>
+  </div>
+  <p class="opening-quote">
+    Comfort is a widely subjective and personal experience. Check the Limitation section at the end.
+  </p>
+</header>
+
+<main class="content">
+
+  <!-- ═══ 01 RATINGS ═══ -->
+  <section class="section">
+    <p class="section-number">01 / IMDb Rating</p>
+    <h2 class="section-title">The Office is a 9.0.</h2>
+    <div class="divider"></div>
+    <p class="section-body">
+      Figure.1 displays the top 10 shows by IMDb rating. The Office recorded the highest rating at 9.0, followed by Seinfeld (8.9), and Fleabag and Ted Lasso (both 8.7).
+    </p>
+    <div class="chart-card">
+      <p class="chart-label">Figure.1 Top 10 shows by IMDb rating</p>
+      <div id="ratingBars"></div>
+    </div>
+
+    <p class="section-number" style="padding-top:32px;">All 59 shows ranked by IMDb rating</p>
+    <div class="chart-card">
+      <div class="tile-legend" id="tileLegend"></div>
+      <div class="tile-grid" id="tileGrid"></div>
+    </div>
+  </section>
+
+  <!-- ═══ 02 VOTES ═══ -->
+  <section class="section">
+    <p class="section-number">02 / Vote Count</p>
+    <h2 class="section-title">Fan love has a way<br>of showing up</h2>
+    <div class="divider"></div>
+    <p class="section-body">
+      Figure.2 displays the top 10 shows by total number of IMDb user votes. Vote count is usually used as a proxy for reach, the more people cared enough to rate the show, the wider its footprint. The Office recorded the highest vote count at 834,899, followed by How I Met Your Mother (782,945) and Supernatural (540,283). Keep in mind that high votes and high rating don't always overlap. For example, Black Books had a rating of 8.4 but only 25 votes.
+    </p>
+    <div class="chart-card">
+      <p class="chart-label">Figure.2 Top 10 shows by IMDb vote count</p>
+      <div id="votesBars"></div>
+    </div>
+  </section>
+
+  <!-- ═══ 03 GENRES ═══ -->
+  <section class="section">
+    <p class="section-number">03 / Genre Distribution</p>
+    <h2 class="section-title">It's almost always Comedy</h2>
+    <div class="divider"></div>
+    <p class="section-body">
+      A total of 15 distinct genres were identified. Comedy was the most (76%) frequently occurring genre, appearing across 45 shows, followed by Drama (27) and Romance (14).
+    </p>
+
+    <div class="chart-card">
+      <p class="chart-label">Figure.3 Genre frequency · hover to see shows</p>
+      <div class="genre-wrap" id="genreWrap"></div>
+    </div>
+  </section>
+
+  <!-- ═══ 04 YEAR ═══ -->
+  <section class="section">
+    <p class="section-number">04 / Premiere Year</p>
+    <h2 class="section-title">2021 was a good year for comfort TV</h2>
+    <div class="divider"></div>
+    <p class="section-body">
+      Figure.4 displays the number of shows by premiere year, spanning 1989 to 2024. The highest number of shows premiered was in 2021, with nine shows debuting that year. Overall, the 2010s accounted for the largest number of shows debut.
+    </p>
+    <div class="chart-card">
+      <p class="chart-label">Figure.4 Shows by premiere year</p>
+      <div class="year-area" id="yearBars"></div>
+      <div class="decade-legend" id="decadeLegend"></div>
+    </div>
+    <div class="chart-card" style="margin-top:16px;">
+      <p class="chart-label">Average IMDb rating by decade</p>
+      <div class="decade-grid" id="decadeGrid"></div>
+    </div>
+  </section>
+
+  <!-- ═══ 05 EPISODES ═══ -->
+  <section class="section">
+    <p class="section-number">05 / Episode Count</p>
+    <h2 class="section-title">~60 episodes?</h2>
+    <div class="divider"></div>
+    <p class="section-body">
+      The average show on this list has 93 episodes, but that number is skewed up by long running shows. The median tells a more honest story: 50% of the shows have fewer than 53 episodes. Also it's worth noting that Supernatural has 327 episodes across 15 seasons. I personally think that's a <strong>commitment</strong>, not just a comfort watch.
+    </p>
+
+    <div class="insight-row" id="epInsights"></div>
+
+    <div class="chart-card">
+      <p class="chart-label">Episode count distribution — number of shows per range</p>
+      <div id="epDist"></div>
+    </div>
+
+    <div class="chart-card" style="margin-top:16px;">
+      <p class="chart-label">Top 10 shows by total episode count</p>
+      <div id="epBars"></div>
+    </div>
+
+  </section>
+
+  <!-- ═══ 06 BUBBLE ═══ -->
+  <section class="section">
+    <p class="section-number">06 / Runtime</p>
+    <h2 class="section-title">Runtime vs. episodes</h2>
+    <div class="divider"></div>
+    <p class="section-body">
+      Figure.5 plots runtime vs. episodes. Each bubble is one show. The x-axis shows episode runtime in minutes. The y-axis shows total episodes. Bubble size reflects IMDb rating. The top-right corner is where your weekends disappear.
+    </p>
+    <div class="chart-card">
+      <p class="chart-label">Figure.5 Runtime (mins) vs total episodes · bubble size = IMDb rating · hover for details</p>
+      <div style="height:380px;">
+        <canvas id="bubbleCanvas"></canvas>
+      </div>
+    </div>
+  <!-- ═══ 07 LIMITATIONS ═══ -->
+  <section class="section">
+    <p class="section-number">07 / Limitations</p>
+    <h2 class="section-title">Limitations</h2>
+    <div class="divider"></div>
+    <p class="section-body">
+      This analysis is subject to several limitations. First, comfort is a highly subjective and personal experience, the shows included in this list reflect the creator's preference and may not align with what others consider comforting. As a result, the findings should not be interpreted as universally representative of comfort media.
+    </p>
+    <p class="section-body">
+      Second, the dataset was limited to English-language TV series. Many viewers find comfort in other forms of media such as films, anime, K-Drama or even comfort creators on YouTube, all of which were not included in this analysis. Expanding the dataset to incorporate a broader range of media/content would provide a more comprehensive understanding of comfort media consumption across different audiences.
+    </p>
+  </section>
+
+</main>
+
+<footer style="text-align:left;max-width:820px;margin:0 auto;padding:40px 32px;border-top:1px solid var(--border);font-size:10px;color:var(--ink3);letter-spacing:0.05em;line-height:2;">
+  <p style="font-weight:500;letter-spacing:0.15em;margin-bottom:10px;font-size:10px;">REFERENCES</p>
+  <p><strong>Data sources</strong></p>
+  <p><a href="https://www.imdb.com/list/ls509813540/" target="_blank">IMDb List Export</a> · Show titles, ratings, votes, runtime, genres, year</p>
+  <p><a href="https://www.themoviedb.org/documentation/api" target="_blank">TMDB API</a> · Number of seasons and episodes per show</p>
+  <p style="margin-top:10px;"><strong>Libraries</strong></p>
+  <p>R · tidyverse · ggplot2</p>
+  <p style="margin-top:10px;"><strong>Literature</strong></p>
+  <p>Grady, S. M. et al. (2025). Comfort media and mood regulation.</p>
+  <p>Wansink, B. et al. (2003). Comfort food: An exploratory journey into the social and emotional context of comfort food.</p>
+  <p style="margin-top:14px;"><a href="https://github.com/thekra-a/comfort_shows" target="_blank">view on GitHub</a></p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// ═══════════════════════════════════
+// DATA
+// ═══════════════════════════════════
+const GENRE_PALETTE = {
+  "Comedy":"#C4862A","Drama":"#B54A3F","Romance":"#9B6BA0","Sci-Fi":"#2A6B50",
+  "Action":"#2B6E6A","Adventure":"#7B5E2A","Fantasy":"#3A7AB5","Crime":"#4A4A4A",
+  "Family":"#D4784A","Mystery":"#5A4A7A","Thriller":"#8A2B2B","Horror":"#3A1A1A",
+  "Music":"#2A5E8A","Musical":"#6A4A8A","Sport":"#2A6B30"
+};
+const DECADE_COL = { "1980s":"#5B4F8A","1990s":"#2B6E6A","2000s":"#C4862A","2010s":"#B54A3F","2020s":"#2A6B50" };
+
+const SHOWS = [
+  { title:"The Office",                   rating:9.0, episodes:201, runtime:22, votes:834899, year:2005 },
+  { title:"Seinfeld",                     rating:8.9, episodes:180, runtime:22, votes:384978, year:1989 },
+  { title:"Fleabag",                      rating:8.7, episodes:12,  runtime:30, votes:247293, year:2016 },
+  { title:"Ted Lasso",                    rating:8.7, episodes:34,  runtime:30, votes:445174, year:2020 },
+  { title:"Arrested Development",         rating:8.6, episodes:84,  runtime:22, votes:344086, year:2003 },
+  { title:"The IT Crowd",                 rating:8.5, episodes:25,  runtime:25, votes:180432, year:2006 },
+  { title:"Community",                    rating:8.5, episodes:110, runtime:22, votes:311349, year:2009 },
+  { title:"Derry Girls",                  rating:8.5, episodes:19,  runtime:30, votes:62411,  year:2018 },
+  { title:"Schitt's Creek",               rating:8.5, episodes:80,  runtime:22, votes:198000, year:2015 },
+  { title:"Heartstopper",                 rating:8.5, episodes:24,  runtime:30, votes:88000,  year:2022 },
+  { title:"Doctor Who",                   rating:8.5, episodes:164, runtime:45, votes:262788, year:2005 },
+  { title:"What We Do in the Shadows",    rating:8.5, episodes:60,  runtime:30, votes:142000, year:2019 },
+  { title:"Brooklyn Nine-Nine",           rating:8.4, episodes:153, runtime:22, votes:417795, year:2013 },
+  { title:"Supernatural",                 rating:8.4, episodes:327, runtime:44, votes:540283, year:2005 },
+  { title:"Black Books",                  rating:8.4, episodes:18,  runtime:25, votes:41000,  year:2000 },
+  { title:"Somebody Somewhere",           rating:8.3, episodes:18,  runtime:30, votes:22000,  year:2022 },
+  { title:"How I Met Your Mother",        rating:8.3, episodes:208, runtime:22, votes:782945, year:2005 },
+  { title:"Shrinking",                    rating:8.2, episodes:22,  runtime:33, votes:68000,  year:2023 },
+  { title:"Abbott Elementary",            rating:8.2, episodes:68,  runtime:22, votes:95000,  year:2021 },
+  { title:"Malcolm in the Middle",        rating:8.2, episodes:151, runtime:22, votes:178000, year:2000 },
+  { title:"Atypical",                     rating:8.2, episodes:38,  runtime:30, votes:88000,  year:2017 },
+  { title:"Gilmore Girls",                rating:8.2, episodes:153, runtime:45, votes:167000, year:2000 },
+  { title:"The Good Place",               rating:8.2, episodes:53,  runtime:22, votes:221297, year:2016 },
+  { title:"Hacks",                        rating:8.2, episodes:34,  runtime:30, votes:62000,  year:2021 },
+  { title:"Zoey's Extraordinary Playlist",rating:8.1, episodes:28,  runtime:60, votes:28000,  year:2020 },
+  { title:"That '70s Show",               rating:8.1, episodes:200, runtime:22, votes:198848, year:1998 },
+  { title:"Mozart in the Jungle",         rating:8.1, episodes:40,  runtime:30, votes:22000,  year:2014 },
+  { title:"Ghosts",                       rating:7.9, episodes:74,  runtime:21, votes:78000,  year:2021 },
+  { title:"Never Have I Ever",            rating:7.8, episodes:40,  runtime:30, votes:88000,  year:2020 },
+  { title:"The Bold Type",                rating:7.8, episodes:56,  runtime:45, votes:26000,  year:2017 },
+  { title:"New Girl",                     rating:7.8, episodes:146, runtime:22, votes:188000, year:2011 },
+  { title:"On My Block",                  rating:7.8, episodes:40,  runtime:30, votes:32000,  year:2018 },
+  { title:"Superstore",                   rating:7.8, episodes:113, runtime:22, votes:54000,  year:2015 },
+  { title:"Fresh Meat",                   rating:7.8, episodes:24,  runtime:50, votes:18000,  year:2011 },
+  { title:"One Tree Hill",                rating:7.8, episodes:187, runtime:60, votes:122000, year:2003 },
+  { title:"Superman & Lois",              rating:7.8, episodes:46,  runtime:42, votes:44000,  year:2021 },
+  { title:"Fresh Off the Boat",           rating:7.7, episodes:116, runtime:22, votes:38000,  year:2015 },
+  { title:"The Sex Lives of College Girls",rating:7.7,episodes:30,  runtime:27, votes:28000,  year:2021 },
+  { title:"The Middle",                   rating:7.7, episodes:215, runtime:22, votes:62000,  year:2009 },
+  { title:"The O.C.",                     rating:7.6, episodes:92,  runtime:44, votes:88000,  year:2003 },
+  { title:"Even Stevens",                 rating:7.6, episodes:65,  runtime:30, votes:12000,  year:2000 },
+  { title:"Lovesick",                     rating:8.0, episodes:18,  runtime:24, votes:24000,  year:2014 },
+  { title:"Only Murders in the Building", rating:8.0, episodes:40,  runtime:30, votes:204048, year:2021 },
+  { title:"Gossip Girl",                  rating:7.5, episodes:121, runtime:42, votes:215083, year:2007 },
+  { title:"Awkward.",                     rating:7.5, episodes:95,  runtime:22, votes:22000,  year:2011 },
+  { title:"Unbreakable Kimmy Schmidt",    rating:7.5, episodes:51,  runtime:30, votes:48000,  year:2015 },
+  { title:"Agents of S.H.I.E.L.D.",      rating:7.5, episodes:136, runtime:45, votes:168000, year:2013 },
+  { title:"Starstruck",                   rating:7.5, episodes:18,  runtime:30, votes:22000,  year:2021 },
+  { title:"The Flash",                    rating:7.5, episodes:184, runtime:43, votes:386004, year:2014 },
+  { title:"Single Parents",               rating:7.2, episodes:44,  runtime:30, votes:8000,   year:2018 },
+  { title:"Home Economics",               rating:7.0, episodes:50,  runtime:30, votes:12000,  year:2021 },
+  { title:"Lizzie McGuire",               rating:6.6, episodes:65,  runtime:30, votes:18000,  year:2001 },
+  { title:"iCarly (2021)",                rating:6.7, episodes:38,  runtime:26, votes:8000,   year:2021 },
+  { title:"iCarly (2007)",                rating:6.8, episodes:97,  runtime:30, votes:28000,  year:2007 },
+  { title:"A to Z",                       rating:6.7, episodes:13,  runtime:24, votes:12000,  year:2014 },
+  { title:"2 Broke Girls",                rating:6.7, episodes:138, runtime:22, votes:88000,  year:2011 },
+  { title:"The Girls on the Bus",         rating:6.7, episodes:10,  runtime:47, votes:4000,   year:2024 },
+  { title:"Supergirl",                    rating:6.2, episodes:126, runtime:43, votes:88000,  year:2015 },
+  { title:"How I Met Your Father",        rating:5.7, episodes:32,  runtime:30, votes:48000,  year:2022 }
+];
+
+const GENRE_MAP = {
+  "Comedy":    ["The Office","Seinfeld","Fleabag","Ted Lasso","Arrested Development","The IT Crowd","Community","Derry Girls","Schitt's Creek","Black Books","Somebody Somewhere","How I Met Your Mother","Shrinking","Abbott Elementary","Malcolm in the Middle","Atypical","Gilmore Girls","The Good Place","Hacks","Zoey's Extraordinary Playlist","That '70s Show","Mozart in the Jungle","Ghosts","Never Have I Ever","The Bold Type","New Girl","On My Block","Superstore","Fresh Meat","The O.C.","Fresh Off the Boat","Only Murders in the Building","Gossip Girl","Awkward.","Unbreakable Kimmy Schmidt","Starstruck","Home Economics","Lovesick","iCarly (2007)","iCarly (2021)","The Middle","Single Parents","2 Broke Girls","A to Z","How I Met Your Father","Even Stevens","Lizzie McGuire"],
+  "Drama":     ["Fleabag","Ted Lasso","The Good Place","Gilmore Girls","Atypical","The Bold Type","Awkward.","Supernatural","One Tree Hill","Supergirl","The Flash","Superman & Lois","On My Block","Heartstopper","Doctor Who","Shrinking","Hacks","The Girls on the Bus","Only Murders in the Building","Agents of S.H.I.E.L.D.","Somebody Somewhere","iCarly (2021)","Never Have I Ever","Malcolm in the Middle","That '70s Show","Fresh Meat","Gossip Girl","How I Met Your Mother","Mozart in the Jungle"],
+  "Romance":   ["How I Met Your Mother","Gossip Girl","Gilmore Girls","The Good Place","That '70s Show","New Girl","One Tree Hill","The O.C.","Heartstopper","Never Have I Ever","Starstruck","A to Z","iCarly (2021)","iCarly (2007)","Awkward."],
+  "Sci-Fi":    ["Supergirl","The Flash","Superman & Lois","Doctor Who","Agents of S.H.I.E.L.D.","The Good Place"],
+  "Mystery":   ["Only Murders in the Building","Supernatural","The Good Place","Agents of S.H.I.E.L.D.","Ghosts"],
+  "Fantasy":   ["Supernatural","The Good Place","What We Do in the Shadows","Ghosts","Doctor Who"],
+  "Action":    ["Supergirl","The Flash","Superman & Lois","Agents of S.H.I.E.L.D."],
+  "Adventure": ["Supergirl","The Flash","Superman & Lois","Doctor Who","Agents of S.H.I.E.L.D."],
+  "Crime":     ["Brooklyn Nine-Nine","Only Murders in the Building","Supernatural","Agents of S.H.I.E.L.D."],
+  "Thriller":  ["Supernatural","Only Murders in the Building","Agents of S.H.I.E.L.D."],
+  "Family":    ["Malcolm in the Middle","Even Stevens","iCarly (2007)","The Middle"],
+  "Horror":    ["Supernatural","What We Do in the Shadows","Ghosts"],
+  "Sport":     ["Ted Lasso","One Tree Hill","Fresh Meat"],
+  "Music":     ["Mozart in the Jungle"],
+  "Musical":   ["Zoey's Extraordinary Playlist"]
+};
+
+const GENRES = [
+  {g:"Comedy",n:45},{g:"Drama",n:27},{g:"Romance",n:14},
+  {g:"Sci-Fi",n:6},{g:"Mystery",n:5},{g:"Fantasy",n:5},
+  {g:"Action",n:5},{g:"Adventure",n:5},{g:"Crime",n:5},
+  {g:"Thriller",n:4},{g:"Family",n:4},{g:"Horror",n:3},
+  {g:"Sport",n:3},{g:"Music",n:2},{g:"Musical",n:2}
+];
+
+const DECADE_AVG = [
+  {d:"1980s",r:8.9,n:1},{d:"1990s",r:8.1,n:2},
+  {d:"2000s",r:8.0,n:17},{d:"2010s",r:7.9,n:28},{d:"2020s",r:7.7,n:11}
+];
+
+// ═══════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════
+function ratingCol(r) {
+  if (r >= 8.5) return { bg:"#C4862A", fg:"#FAF3E0" };
+  if (r >= 8.0) return { bg:"#D4A84B", fg:"#FAF3E0" };
+  if (r >= 7.5) return { bg:"#E8C878", fg:"#4A3800" };
+  if (r >= 7.0) return { bg:"#F0DFA0", fg:"#5A4A00" };
+  if (r >= 6.5) return { bg:"#F5EDD0", fg:"#7A6A30" };
+  return              { bg:"#EDE8E0", fg:"#8A837C" };
+}
+
+function decadeOf(y) {
+  if (y < 1990) return "1980s";
+  if (y < 2000) return "1990s";
+  if (y < 2010) return "2000s";
+  if (y < 2020) return "2010s";
+  return "2020s";
+}
+
+function barChart(id, rows, key, fmt, color) {
+  const el = document.getElementById(id); if (!el) return;
+  const mx = Math.max(...rows.map(r => r[key]));
+  el.innerHTML = rows.map(r => `
+    <div class="bar-row">
+      <span class="bar-name" title="${r.title}">${r.title}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${(r[key]/mx*100).toFixed(1)}%;background:${color}"></div></div>
+      <span class="bar-val">${fmt(r[key])}</span>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════
+// RENDER
+// ═══════════════════════════════════
+function render() {
+  const shows = SHOWS;
+
+  // Hero
+  document.getElementById("heroEps").textContent = shows.reduce((s,x)=>s+(x.episodes||0),0).toLocaleString();
+  document.getElementById("heroHrs").textContent = Math.round(shows.reduce((s,x)=>s+((x.runtime||0)*(x.episodes||0))/60,0)).toLocaleString();
+
+  // ── 01 Ratings bar
+  const top10r = [...shows].sort((a,b)=>b.rating-a.rating).slice(0,10);
+  barChart("ratingBars", top10r, "rating", v => v.toFixed(1)+" ★", "#B54A3F");
+
+  // Rating tile grid
+  const tileLegend = document.getElementById("tileLegend");
+  tileLegend.innerHTML = [["9.0+","#C4862A"],["8.0–8.9","#D4A84B"],["7.5–7.9","#E8C878"],["7.0–7.4","#F0DFA0"],["Under 7.0","#EDE8E0"]]
+    .map(([l,c])=>`<span><i style="background:${c}"></i>${l}</span>`).join('');
+  const tileGrid = document.getElementById("tileGrid");
+  tileGrid.innerHTML = [...shows].sort((a,b)=>b.rating-a.rating).map(s => {
+    const c = ratingCol(s.rating);
+    return `<div class="tile" style="background:${c.bg};color:${c.fg}">
+      <span class="tile-rating">${s.rating.toFixed(1)}</span>
+      <span class="tile-name">${s.title.split(':')[0].split('(')[0].trim().substring(0,11)}</span>
+      <span class="tile-tip">${s.title} · ★${s.rating}</span>
+    </div>`;
+  }).join('');
+
+  // ── 02 Votes bar
+  const top10v = [...shows].sort((a,b)=>b.votes-a.votes).slice(0,10);
+  barChart("votesBars", top10v, "votes", v=>(v/1000).toFixed(0)+"k", "#C4862A");
+
+  // ── 03 Genres
+  // genre insight boxes removed per user request
+
+  const genreWrap = document.getElementById("genreWrap");
+  genreWrap.innerHTML = GENRES.map(g => {
+    const col = GENRE_PALETTE[g.g] || "#888";
+    const shows_in = GENRE_MAP[g.g] || [];
+    const tip = shows_in.length
+      ? `<span class="genre-tip"><span class="genre-tip-title">${g.g} · ${shows_in.length} shows</span>${shows_in.map(s=>`<span class="genre-tip-show">${s}</span>`).join('')}</span>`
+      : '';
+    return `<span class="genre-pill" style="background:${col}20;color:${col};border:1px solid ${col}44">
+      <span class="genre-pill-count">${g.n}</span>${g.g}${tip}
+    </span>`;
+  }).join('');
+
+  // ── 04 Year timeline
+  const yearMap = {};
+  shows.forEach(s => { yearMap[s.year] = (yearMap[s.year]||0)+1; });
+  const years = Object.keys(yearMap).map(Number).sort((a,b)=>a-b);
+  const maxN = Math.max(...Object.values(yearMap));
+  const modeYear = years.find(y => yearMap[y]===maxN);
+
+  document.getElementById("yearBars").innerHTML = years.map(y => {
+    const n = yearMap[y];
+    const h = Math.max(5, Math.round(n/maxN*95));
+    const col = DECADE_COL[decadeOf(y)];
+    const titles = shows.filter(s=>s.year===y).map(s=>s.title).join(', ');
+    return `<div class="year-col">
+      <span class="year-tip">${y}: ${n} show${n>1?'s':''}<br><span style="font-size:10px;opacity:0.8">${titles}</span></span>
+      <div class="year-bar" style="height:${h}px;background:${col};opacity:${y===modeYear?1:0.55};${y===modeYear?'outline:2px solid '+col+';outline-offset:2px':''}"></div>
+      <span class="year-lbl">${y}</span>
+    </div>`;
+  }).join('');
+
+  document.getElementById("decadeLegend").innerHTML = Object.entries(DECADE_COL).map(([d,c])=>
+    `<span><i style="background:${c}"></i>${d}</span>`).join('');
+
+  const maxDecR = Math.max(...DECADE_AVG.map(d=>d.r));
+  document.getElementById("decadeGrid").innerHTML = DECADE_AVG.map(d=>`
+    <div class="decade-card">
+      <div class="decade-card-label" style="color:${DECADE_COL[d.d]}">${d.d}</div>
+      <div class="decade-card-num">${d.r.toFixed(1)}</div>
+      <div class="decade-card-sub">${d.n} show${d.n!==1?'s':''}</div>
+      <div class="decade-bar" style="width:${(d.r/maxDecR*100).toFixed(0)}%;background:${DECADE_COL[d.d]}"></div>
+    </div>`).join('');
+
+  // ── 05 Episodes
+  const epShows = shows.filter(s=>s.episodes);
+  const avgEps  = Math.round(epShows.reduce((s,x)=>s+x.episodes,0)/epShows.length);
+  const medEps  = [...epShows].sort((a,b)=>a.episodes-b.episodes)[Math.floor(epShows.length/2)].episodes;
+  const maxEps  = Math.max(...epShows.map(s=>s.episodes));
+  const topEpsShow = epShows.find(s=>s.episodes===maxEps);
+
+  document.getElementById("epInsights").innerHTML = `
+    <div class="insight-box">
+      <div class="insight-label">Average Episodes</div>
+      <div class="insight-num">${avgEps}<span> eps</span></div>
+      <div class="insight-note">Skewed up by Supernatural (327 eps).</div>
+    </div>
+    <div class="insight-box">
+      <div class="insight-label">Median Episodes</div>
+      <div class="insight-num">${medEps}<span> eps</span></div>
+      <div class="insight-note">Half of all shows have fewer than ${medEps} episodes.</div>
+    </div>
+    <div class="insight-box">
+      <div class="insight-label">Longest Show</div>
+      <div class="insight-num">${maxEps}<span> eps</span></div>
+      <div class="insight-note">Supernatural</div>
+    </div>`;
+
+  const bins = [
+    {l:"1–25 eps",  mn:1,  mx:25  },
+    {l:"26–50 eps", mn:26, mx:50  },
+    {l:"51–100 eps",mn:51, mx:100 },
+    {l:"101–200 eps",mn:101,mx:200},
+    {l:"200+ eps",  mn:201,mx:9999}
+  ];
+  const binCounts = bins.map(b=>({...b, n: epShows.filter(s=>s.episodes>=b.mn&&s.episodes<=b.mx).length}));
+  const maxBin = Math.max(...binCounts.map(b=>b.n));
+  const cols = ["#D4A84B","#C4862A","#2B6E6A","#B54A3F","#5B4F8A"];
+  document.getElementById("epDist").innerHTML = binCounts.map((b,i)=>`
+    <div class="ep-row">
+      <span class="ep-lbl">${b.l}</span>
+      <div class="ep-track">
+        <div class="ep-fill" style="width:${(b.n/maxBin*100).toFixed(1)}%;background:${cols[i]}33;color:${cols[i]}">
+          ${b.n>0?`<span>${b.n} show${b.n!==1?'s':''}</span>`:''}
+        </div>
+      </div>
+    </div>`).join('');
+
+  const top10eps = [...epShows].sort((a,b)=>b.episodes-a.episodes).slice(0,10);
+  barChart("epBars", top10eps, "episodes", v=>v+" eps", "#2B6E6A");
+
+  // ── 06 Bubble chart
+  const bData = shows.filter(s=>s.runtime&&s.episodes).map(s=>({
+    x: s.runtime, y: Math.min(s.episodes,340),
+    r: Math.max(4,Math.min(16,(s.rating-5)*4)),
+    label:s.title, eps:s.episodes, rating:s.rating
+  }));
+  new Chart(document.getElementById("bubbleCanvas"),{
+    type:"bubble",
+    data:{ datasets:[{ data:bData,
+      backgroundColor: bData.map(b=>ratingCol(b.rating).bg+"BB"),
+      borderColor:     bData.map(b=>ratingCol(b.rating).bg),
+      borderWidth:1.5
+    }]},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{callbacks:{
+        label: ctx=>{ const d=ctx.raw; return `${d.label} · ${d.x}min · ${d.eps} eps · ★${d.rating}`; }
+      }}},
+      scales:{
+        x:{ title:{display:true,text:"Episode runtime (minutes)",font:{family:"'DM Sans'",size:11},color:"#8A837C"},
+            grid:{color:"rgba(0,0,0,0.05)"},ticks:{color:"#8A837C"},min:15,max:75},
+        y:{ title:{display:true,text:"Total episodes (capped at 340)",font:{family:"'DM Sans'",size:11},color:"#8A837C"},
+            grid:{color:"rgba(0,0,0,0.05)"},ticks:{color:"#8A837C"},min:0,max:360}
+      }
+    }
+  });
+}
+
+render();
+</script>
+</body>
+</html>
