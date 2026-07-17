@@ -297,7 +297,7 @@
   <h1 class="hero-title">The Media We Consume<br><em>for Comfort</em></h1>
   <p class="hero-subtitle">An analysis of your good ol' heartwarming TV shows</p>
   <p class="hero-intro" style="text-align:justify;">
-    Comfort shows are more than background noise on a lonely night. A growing body of evidence suggests that certain types of media can create a positive psychological impact, including reduced distress and mood regulation with low cognitive arousal.
+    Comfort shows are more than background noise on a quiet night. A growing body of evidence suggests that certain types of media can create a positive psychological impact, including reduced distress and mood regulation with low cognitive arousal.
   </p>
   <div class="hero-stats">
     <div class="hero-stat">
@@ -318,7 +318,7 @@
     </div>
   </div>
   <p class="opening-quote">
-    Comfort is a widely subjective and personal experience. See Limitations.
+    Comfort is a widely subjective and personal experience. See <em>Limitations</em>.
   </p>
 </header>
 
@@ -348,10 +348,10 @@
       The data used in this analysis was extracted from two sources:
     </p>
     <p class="section-body">
-      <strong>A direct export from IMDb.</strong> A list of 63 shows was exported directly from IMDb as a CSV file (see References section for links, see data dictionary for a description of the data). The list was inspected using <code>str()</code>, <code>head()</code>, <code>summary()</code>, <code>colSums(is.na())</code>, as well as a manual review of the genres column to assess the most suitable data cleaning strategy.
+      <strong>A direct export from IMDb.</strong> A list of 63 shows was exported directly from IMDb as a CSV file (see <em>References</em>, see <em>Github</em> repo for full data dictionary). The list was inspected using <code>str()</code>, <code>head()</code>, <code>summary()</code>, <code>colSums(is.na())</code>, as well as a manual review of the genres column to assess the most suitable data cleaning strategy.
     </p>
     <p class="section-body">
-      <strong>The Movies Data Base (TMDB) API.</strong> TMDB is an open-source movie and TV shows database manually built by a community of movie enthusiasts. I originally attempted to scrape the data directly from IMDb using <code>read_html()</code>, however, the function failed due to IMDb's protection against bot scraping requests, leaving an API the next viable option :)
+      <strong>The Movies Data Base (TMDB) API.</strong> TMDB is an open-source movie and TV shows database built by a community of movie enthusiasts. I originally attempted to scrape the data directly from IMDB using <code>read_html()</code>, however, the function failed due to IMDB's protection against bot scraping requests, leaving API scraping as the next viable option :)
     </p>
 
     <p class="section-number" style="padding-top:8px;">2.2 Data Cleaning</p>
@@ -361,7 +361,7 @@
 
     <p class="section-number" style="padding-top:8px;">2.3 Exploratory Data Analysis (EDA) and Visualization</p>
     <p class="section-body">
-      Descriptive statistics were used to summarize the data using <code>summary()</code> and <code>ggplot2</code>. See the Results section below for the analysis and plots.
+      Descriptive statistics were used to summarize the data using <code>summary()</code> and <code>ggplot2</code>. See <em>Results</em> .
     </p>
   </section>
 
@@ -370,7 +370,7 @@
     <p class="section-number">3 / Results</p>
     <h2 class="section-title">Results</h2>
     <div class="divider"></div>
-    <p class="section-body">A list of 63 shows were extracted. Following the exclusion of one TV special and three animated series, 59 TV series were retained for analysis.</p>
+    <p class="section-body">A list of 63 shows were extracted. Following the exclusion TV specials and animated series, 59 TV series were retained for analysis.</p>
   </section>
 
   <section class="section">
@@ -483,7 +483,7 @@
     <h2 class="section-title">Limitations</h2>
     <div class="divider"></div>
     <p class="section-body">
-      This analysis is subject to several limitations. First, comfort is a highly subjective and personal experience, the shows included in this list reflect the creator's preference and may not align with what others consider comforting. As a result, the findings should not be generalized or interpreted as universally representative of comfort media.
+      This analysis is subject to several limitations. First, comfort is a highly subjective and personal experience. The shows included in this list reflect the creator's preference and may not align with what others consider comforting. As a result, the findings should not be generalized or interpreted as universally representative of comfort media.
     </p>
     <p class="section-body">
       Second, the dataset was limited to English-language TV series. Many viewers find comfort in other forms of media such as films, anime, or even comfort creators on YouTube (e.g. ASMR videos), all of which were not included in this analysis. Expanding the dataset to incorporate a broader range of media/content would provide a more comprehensive understanding of comfort media consumption across different audiences.
